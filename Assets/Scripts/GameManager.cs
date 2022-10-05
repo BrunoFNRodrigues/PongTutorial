@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,11 +24,13 @@ public class GameManager : MonoBehaviour
     public void Player1Scored(){
         Player1Score++;
         Player1Text.GetComponent<TextMeshProUGUI>().text = Player1Score.ToString();
+        WinnerCheck();
         ResetPosition();
     }
     public void Player2Scored(){
         Player2Score++;
         Player2Text.GetComponent<TextMeshProUGUI>().text = Player2Score.ToString();
+        WinnerCheck();
         ResetPosition();
     }
 
@@ -36,5 +39,14 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<Ball>().Reset();
         player1Paddle.GetComponent<PlayerMovement>().Reset();
         player2Paddle.GetComponent<PlayerMovement>().Reset();
+    }
+
+    private void WinnerCheck(){
+        if (Player1Score >= 5){
+            SceneManager.LoadScene(2);
+        } 
+        if (Player2Score >= 5){
+            SceneManager.LoadScene(3);
+        }
     }
 }
